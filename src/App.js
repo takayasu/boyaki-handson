@@ -1,14 +1,17 @@
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-
 import { Box } from "@mui/system";
-
 import { Grid } from '@mui/material';
 
 import EntryBoyaki from './parts/EntryBoyaki';
 import BoyakiListData from './parts/BoyakiListData';
 import BoyakiAppBar from './parts/BoyakiAppBar';
 
+import Amplify from 'aws-amplify';
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
 
+import awsconfig from './aws-exports';
+Amplify.configure(awsconfig);
 
 
 const theme = createTheme({
@@ -30,19 +33,19 @@ const theme = createTheme({
 });
 
 
-function App() {
+function App({ signOut, user }) {
   return (
     <ThemeProvider theme={theme}>
       <>
       <Grid container spacing={1}>
         <Grid item md={12} sx={{}} >
-          <BoyakiAppBar />
+          <BoyakiAppBar user={user}/>
         </Grid>
         <Grid item xs={12} md={6} sx={{
                     } }>
           <Box sx={{
               margin: '10px' }}>
-              <EntryBoyaki />
+              <EntryBoyaki signOut={signOut}/>
           </Box>
         </Grid>
         <Grid item xs={12} md={6}>
@@ -58,4 +61,4 @@ function App() {
   );
 }
 
-export default App;
+export default withAuthenticator(App);
