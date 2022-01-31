@@ -14,11 +14,75 @@ export const getPost = /* GraphQL */ `
 `;
 export const listPosts = /* GraphQL */ `
   query ListPosts(
+    $id: ID
+    $filter: ModelPostFilterInput
+    $limit: Int
+    $nextToken: String
+    $sortDirection: ModelSortDirection
+  ) {
+    listPosts(
+      id: $id
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
+      items {
+        type
+        id
+        content
+        owner
+        timestamp
+      }
+      nextToken
+    }
+  }
+`;
+export const listPostsSortedByTimestamp = /* GraphQL */ `
+  query ListPostsSortedByTimestamp(
+    $type: String
+    $timestamp: ModelIntKeyConditionInput
+    $sortDirection: ModelSortDirection
     $filter: ModelPostFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listPostsSortedByTimestamp(
+      type: $type
+      timestamp: $timestamp
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        type
+        id
+        content
+        owner
+        timestamp
+      }
+      nextToken
+    }
+  }
+`;
+export const listPostsBySpecificOwner = /* GraphQL */ `
+  query ListPostsBySpecificOwner(
+    $owner: String
+    $timestamp: ModelIntKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelPostFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listPostsBySpecificOwner(
+      owner: $owner
+      timestamp: $timestamp
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
       items {
         type
         id

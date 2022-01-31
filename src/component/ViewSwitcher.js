@@ -2,20 +2,25 @@ import { List, ListItemButton,ListItemIcon,ListItemText } from "@mui/material";
 import {Person as PersonIcon,Public as PublicIcon} from '@mui/icons-material';
 import { useState } from "react";
 
-const ViewSwitcher = (props) => {
+const ViewSwitcher = ({mode,change}) => {
 
-    const [isGlobal,toggleGlobal] = useState(true);
+    const [innermode,setInnerMode] = useState(mode);
+ 
+    const changeMode = (mode) => {
+        setInnerMode(mode);
+        change(mode);
+    };
 
     return (
         <>
             <List>
-                <ListItemButton selected={isGlobal} onClick={()=>{toggleGlobal(true)}}>
+                <ListItemButton selected={innermode=='All'} onClick={()=>{changeMode('All')}}>
                     <ListItemIcon>
                         <PublicIcon />
                     </ListItemIcon>
                     <ListItemText primary="Global Timeline" />
                 </ListItemButton>
-                <ListItemButton  selected={!isGlobal} onClick={()=>{toggleGlobal(false)}}>
+                <ListItemButton  selected={innermode=='Owner'} onClick={()=>{changeMode('Owner')}}>
                     <ListItemIcon>
                         <PersonIcon />
                     </ListItemIcon>

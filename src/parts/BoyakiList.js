@@ -10,13 +10,12 @@ const BoyakiList = ({list}) => {
             <h3>No Data</h3>
         </>);
     }
-
-    console.log(list);
     return(
         <>
+        
             {
                 list.map(item => (
-                    <PostItem key={item.key} post={item}></PostItem>
+                    <PostItem key={item.id} post={item}></PostItem>
                 ))
             }
         </>

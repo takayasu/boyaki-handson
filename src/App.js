@@ -1,16 +1,13 @@
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { Box } from "@mui/system";
-import { Grid } from '@mui/material';
 
-import EntryBoyaki from './parts/EntryBoyaki';
-import BoyakiListData from './parts/BoyakiListData';
-import BoyakiAppBar from './parts/BoyakiAppBar';
+
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 import Amplify from 'aws-amplify';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 import awsconfig from './aws-exports';
+import TopPage from './page/TopPage';
 Amplify.configure(awsconfig);
 
 
@@ -34,28 +31,11 @@ const theme = createTheme({
 
 
 function App({ signOut, user }) {
+
   return (
     <ThemeProvider theme={theme}>
       <>
-      <Grid container spacing={1}>
-        <Grid item md={12} sx={{}} >
-          <BoyakiAppBar user={user}/>
-        </Grid>
-        <Grid item xs={12} md={6} sx={{
-                    } }>
-          <Box sx={{
-              margin: '10px' }}>
-              <EntryBoyaki signOut={signOut}/>
-          </Box>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Box sx={{
-            margin: '30px'
-              }}>
-              <BoyakiListData />
-          </Box>
-        </Grid>
-          </Grid>
+        <TopPage user={user} signOut={signOut}/>
       </>
     </ThemeProvider>
   );
